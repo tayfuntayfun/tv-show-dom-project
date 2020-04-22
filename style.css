@@ -12,7 +12,7 @@ body {
   width: 20%;
   min-width: 350px;
   padding-top: 0px;
-  border: 2px solid rgba(209, 217, 219, 0.938);
+  border: 2px solid rgba(0, 4, 5, 0.938);
   border-radius: 10px;
   margin: 10px 10px;
   background-color: rgb(255, 255, 255);
@@ -29,10 +29,18 @@ body {
 }
 
 .episodeHeader{
-border: 3px solid rgb(0, 0, 0) ;
+display:flex; 
+align-items:center; 
+justify-content:center;
+border: 3px solid rgb(12, 12, 12) ;
 border-radius: 10px;
 height: 20%;
 margin-top: 0px;
 text-align: center;
 font-size: 25px;
+padding: 3px 3px;
+}
+
+p{
+  padding: 10px 30px;
 }

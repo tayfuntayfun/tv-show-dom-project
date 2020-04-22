@@ -14,9 +14,9 @@ function makePageForEpisodes(episodeList) {
               item.name
             } - S${item.season.toString().padStart(2, "0")}E${item.number.toString().padStart(2, "0")}</h1>
             <img src=${item.image.medium} alt= ${item.name}
-            <p>${item.summary}</p>
+            <p class="itemSummary">${item.summary}</p>
             </div>`;
-  });
+  }).join('');
   episodes.innerHTML = newEpisodes;
   rootElem.appendChild(episodes);
   // console.log(episodes);
