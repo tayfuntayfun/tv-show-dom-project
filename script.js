@@ -9,8 +9,8 @@ function makePageForEpisodes(episodeList) {
   //Create search feature;
   rootElem.innerHTML = `<div id="search-episodes">
   <span class="search-bar">Search all episodes</span>
-  <select id="episode-list"></select>
-  <input type="search" id="search-episodes" placeholder="Search for..">
+  <select id="episode-list"><option value = "test"></option></select>
+  <input type="search" class="search-episodes" placeholder="Search for keywords">
   </div>`; 
   
   //div creation for all episodes
@@ -19,9 +19,8 @@ function makePageForEpisodes(episodeList) {
   episodes.innerHTML = createNewList(episodeList);
   rootElem.appendChild(episodes)
   
-  //Search Button function
-  const getInputField = document.getElementById("search-episodes");
-
+  const getInputField = document.querySelector(".search-episodes");
+  console.log(getInputField.value)
   // Dropdown rolling search
   const dropDownSearchMenu = document.querySelector("#episode-list");
   dropDownSearchMenu.addEventListener("change", function (event) {
@@ -45,6 +44,16 @@ function makePageForEpisodes(episodeList) {
     .join("");
   }
 
+  //Search Button function
+  getInputField.addEventListener("keyup", function () {
+    let filteredEpisodes = episodeList.filter(
+      (episode) =>
+        episode.summary.toLowerCase().includes(getInputField.value) ||
+        episode.name.toLowerCase().includes(getInputField.value)
+    );
+    episodes.innerHTML = createNewList(filteredEpisodes);
+  });
+
   function  createNewList(episodeList){ 
   return episodeList.map(function (item) {
      return `<div class="episode">
@@ -52,9 +61,8 @@ function makePageForEpisodes(episodeList) {
       <img src=${item.image.medium} alt= ${item.name}>
       ${item.summary}
       </div>`;
-  }).join('');
-}
-
+    }).join('');
+  }
 }
 
 window.onload = setup;
