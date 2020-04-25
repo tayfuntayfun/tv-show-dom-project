@@ -15,7 +15,8 @@ body {
 
 #search-episodes{
   color: aliceblue;
-  background-color: rgb(77, 81, 85);
+  background-color: rgb(43, 38, 38);
+  border: 1px solid rgb(153, 33, 33);
   border-radius: 10px;
   padding: 10px 10px;
 }
@@ -32,6 +33,7 @@ body {
 .display-search{
   color: aliceblue;
 }
+
 .episodeHeader{
   display:flex; 
   align-items:center; 
@@ -44,7 +46,7 @@ body {
   border: rgb(49, 48, 48);
   color: red;
   margin: 0 2px 5px 2px;
-  }
+}
 
 .episodeHeader:hover{
   border: 3px solid rgb(12, 12, 12) ;
@@ -82,7 +84,7 @@ body {
   padding-bottom: 2rem;
   justify-content: space-around;
   border-radius: 10px;
-  border: 1px solid rgb(88, 37, 37);
+  border: 1px solid rgb(153, 33, 33);
   margin-top: 10px;
 }
 
