@@ -1,13 +1,23 @@
 //You can edit ALL of the code here
+// function setup() {
+//   const allEpisodes = getAllEpisodes();
+//   makePageForEpisodes(allEpisodes);
+// }
+
 function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
+  fetch("https://api.tvmaze.com/shows/82/episodes")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      makePageForEpisodes(data);
+    });
 }
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   //Create search feature;
-  rootElem.innerHTML = `<div id="search-episodes">
+  rootElem.innerHTML = `<div id="search-episodes"><button class="home" type="button">HOME</button>
   <span class="search-bar">Search all episodes</span>
   <select id="episode-list"><option value = "test"></option></select>
   <input type="search" class="search-episodes" placeholder="Search for keywords">
@@ -23,11 +33,13 @@ function makePageForEpisodes(episodeList) {
   console.log(getInputField.value)
   // Dropdown rolling search
   const dropDownSearchMenu = document.querySelector("#episode-list");
-  dropDownSearchMenu.addEventListener("change", function (event) {
+  dropDownSearchMenu.addEventListener("change", function (event){
     const episodeId = event.target.value;
+    console.log(episodeId)
     const episodesFilteredById = episodeList.filter(
-      (episode) => episode.id == episodeId
+    (episode) => episode.id == episodeId
     );
+    console.log(episodesFilteredById)
     episodes.innerHTML = createNewList(episodesFilteredById);
   });
 
@@ -37,9 +49,9 @@ function makePageForEpisodes(episodeList) {
     return episodeList
       .map(function (item) {
         return `<option value =${item.id}>
-    S${item.season.toString().padStart(2,"0")}
-    E${item.number.toString().padStart(2, "0")} 
-    ${item.name}</option>`;
+        S${item.season.toString().padStart(2,"0")}
+        E${item.number.toString().padStart(2, "0")} 
+        ${item.name}</option>`;
       })
     .join("");
   }
@@ -63,6 +75,11 @@ function makePageForEpisodes(episodeList) {
       </div>`;
     }).join('');
   }
-}
 
+const homebtn = document.querySelector(".home");
+homebtn.addEventListener("click", function () {
+  location.reload(true);
+});
+
+}
 window.onload = setup;

@@ -9,6 +9,20 @@ body {
   border-radius: 10px;
 }
 
+.home{
+  margin: 10px 10px;
+  padding: 7px 7px;
+  background-color: rgb(43, 38, 38);
+  color: aliceblue;
+  border-radius: 5px;
+  border: 1px solid red;
+  font-weight: bold;
+}
+
+.home:hover{
+  background-color: rgba(110, 8, 59, 0.938);
+}
+
 #search-content{
   margin: 10px 10px;
 }
