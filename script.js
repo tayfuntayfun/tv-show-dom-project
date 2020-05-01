@@ -64,6 +64,7 @@ function makePageForEpisodes(episodeList) {
         episode.name.toLowerCase().includes(getInputField.value)
     );
     episodes.innerHTML = createNewList(filteredEpisodes);
+    // episodeNum.textContent = `${filterEpisode.length} episode(s)`;
   });
 
   function  createNewList(episodeList){ 

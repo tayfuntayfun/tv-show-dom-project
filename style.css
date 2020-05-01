@@ -27,6 +27,11 @@ body {
   margin: 10px 10px;
 }
 
+img:hover{
+  width: 100%;
+  height: auto;
+}
+
 #search-episodes{
   color: aliceblue;
   background-color: rgb(43, 38, 38);
