@@ -40,6 +40,10 @@ img:hover{
   padding: 10px 10px;
 }
 
+#series-list{
+width: 300px;
+}
+
 #episode-list{
   width: auto;
 }

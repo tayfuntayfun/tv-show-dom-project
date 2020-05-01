@@ -1,29 +1,41 @@
-//You can edit ALL of the code here
-// function setup() {
-//   const allEpisodes = getAllEpisodes();
-//   makePageForEpisodes(allEpisodes);
-// }
-
+const rootElem = document.getElementById("root");
+  //Create search feature;
+rootElem.innerHTML = `
+  <div id="search-episodes">
+  <button class="home" type="button">HOME</button>
+  <span class="search-bar">Search all episodes</span>
+  <select id="series-list"></option></select>
+  <select id="episode-list"></option></select>
+  <input type="search" class="search-episodes" placeholder="Search for keywords">
+  </div>`; 
+  
 function setup() {
-  fetch("https://api.tvmaze.com/shows/82/episodes")
+  fetch("https://api.tvmaze.com/shows/1/episodes")
     .then((response) => {
       return response.json();
     })
     .then((data) => {
       makePageForEpisodes(data);
     });
+
+  const shows = getAllShows();
+  const showList = document.querySelector("#series-list");
+  showList.innerHTML = createSerialSelectorMenu(shows);
+
+  showList.addEventListener("change", function (event) {
+    const showId = event.target.value;
+    fetch(`https://api.tvmaze.com/shows/${showId}/episodes`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        makePageForEpisodes(data);
+      });
+  });
 }
 
 function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
-  //Create search feature;
-  rootElem.innerHTML = `<div id="search-episodes"><button class="home" type="button">HOME</button>
-  <span class="search-bar">Search all episodes</span>
-  <select id="episode-list"><option value = "test"></option></select>
-  <input type="search" class="search-episodes" placeholder="Search for keywords">
-  </div>`; 
-  
-  //div creation for all episodes
+  // create div for all episodes
   let episodes = document.createElement("div");
   episodes.className = "episodeContainer";
   episodes.innerHTML = createNewList(episodeList);
@@ -45,17 +57,6 @@ function makePageForEpisodes(episodeList) {
 
   dropDownSearchMenu.innerHTML = createDropDownMenu(episodeList);
 //DropDown menu
-  function createDropDownMenu(episodeList) {
-    return episodeList
-      .map(function (item) {
-        return `<option value =${item.id}>
-        S${item.season.toString().padStart(2,"0")}
-        E${item.number.toString().padStart(2, "0")} 
-        ${item.name}</option>`;
-      })
-    .join("");
-  }
-
   //Search Button function
   getInputField.addEventListener("keyup", function () {
     let filteredEpisodes = episodeList.filter(
@@ -64,23 +65,44 @@ function makePageForEpisodes(episodeList) {
         episode.name.toLowerCase().includes(getInputField.value)
     );
     episodes.innerHTML = createNewList(filteredEpisodes);
-    // episodeNum.textContent = `${filterEpisode.length} episode(s)`;
+    let getmainHeader = document.getElementById("search-episodes")
+    getmainHeader.textContent += `${filterEpisode.length} episode(s)`;
   });
+}
 
-  function  createNewList(episodeList){ 
-  return episodeList.map(function (item) {
-     return `<div class="episode">
-      <h1 class="episodeHeader">${item.name} - S${item.season.toString().padStart(2, "0")}E${item.number.toString().padStart(2, "0")}</h1>
-      <img src=${item.image.medium} alt= ${item.name}>
-      ${item.summary}
-      </div>`;
-    }).join('');
-  }
+function createDropDownMenu(episodeList) {
+  return episodeList
+    .map(function (item) {
+      return `<option value =${item.id}>
+      S${item.season.toString().padStart(2,"0")}
+      E${item.number.toString().padStart(2, "0")} 
+      ${item.name}</option>`;
+    })
+  .join("");
+}
+
+function  createNewList(episodeList){ 
+return episodeList.map(function (item) {
+    return `<div class="episode">
+    <h1 class="episodeHeader">${item.name} - S${item.season.toString().padStart(2, "0")}E${item.number.toString().padStart(2, "0")}</h1>
+    <img src=${item.image.medium} alt= ${item.name}>
+    ${item.summary}
+    </div>`;
+  }).join('');
+}
 
 const homebtn = document.querySelector(".home");
 homebtn.addEventListener("click", function () {
   location.reload(true);
 });
 
+function createSerialSelectorMenu(shows) {
+  return shows
+    .map(function (item) {
+      return `<option value =${item.id}>
+  ${item.name}</option>`;
+    })
+    .join("");
 }
+
 window.onload = setup;
