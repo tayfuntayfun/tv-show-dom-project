@@ -58,8 +58,8 @@ function makePageForEpisodes(episodeList) {
   getInputField.addEventListener("keyup", function () {
     let filteredEpisodes = episodeList.filter(
       (episode) =>
-        episode.summary.toLowerCase().includes(getInputField.value) ||
-        episode.name.toLowerCase().includes(getInputField.value)
+        episode.summary.toLowerCase().includes(getInputField.value.toLowerCase()) ||
+        episode.name.toLowerCase().includes(getInputField.value.toLowerCase())
     );
     episodes.innerHTML = createNewList(filteredEpisodes);
     // counter(filteredEpisodes)

@@ -114,6 +114,7 @@ font-weight: bolder;
   display: flex;
   flex-wrap: wrap;
   background-color: rgb(43, 38, 38);
+  padding: 0px 0px;
   padding-bottom: 2rem;
   justify-content: space-around;
   border-radius: 10px;
@@ -152,6 +153,7 @@ p {
     width: 95%;
   }
   .episode{
-    /* margin: auto; */
+    margin: 5px 5px;
   }
+
 }
