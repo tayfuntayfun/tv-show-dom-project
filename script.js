@@ -3,12 +3,14 @@ const rootElem = document.getElementById("root");
 rootElem.innerHTML = `
   <div id="search-episodes">
   <button class="home" type="button">HOME</button>
-  <span class="search-bar">Search all episodes</span>
+  <span class="search-bar">Series</span>
   <select id="series-list"></option></select>
+  <span class="search-bar">Episodes</span>
   <select id="episode-list"></option></select>
-  <input type="search" class="search-episodes" placeholder="Search for keywords">
-  </div>`; 
-  
+  <input type="search" class="search-episodes"  placeholder="Search  keywords">
+  </div><div class="episodeContainer"></div>`; 
+
+//Onload function / API fetch / default Serie: 1
 function setup() {
   fetch("https://api.tvmaze.com/shows/1/episodes")
     .then((response) => {
@@ -18,9 +20,9 @@ function setup() {
       makePageForEpisodes(data);
     });
 
-  const shows = getAllShows();
+  const allShows = getAllShows();
   const showList = document.querySelector("#series-list");
-  showList.innerHTML = serialSelector(shows);
+  showList.innerHTML = serialSelector(allShows);
 
   showList.addEventListener("change", function (event) {
     const showId = event.target.value;
@@ -34,12 +36,10 @@ function setup() {
   });
 }
 
+//content create
 function makePageForEpisodes(episodeList) {
-  // create div for all episodes
-  let episodes = document.createElement("div");
-  episodes.className = "episodeContainer";
+  let episodes = document.querySelector(".episodeContainer");
   episodes.innerHTML = createNewList(episodeList);
-  rootElem.appendChild(episodes)
   
   const getInputField = document.querySelector(".search-episodes");
   // Dropdown rolling search
@@ -88,8 +88,9 @@ return episodeList.map(function (item) {
   }).join('');
 }
 
-const homebtn = document.querySelector(".home");
-homebtn.addEventListener("click", function () {
+//reset page to default
+const homeBtn = document.querySelector(".home");
+homeBtn.addEventListener("click", function () {
   location.reload(true);
 });
 
