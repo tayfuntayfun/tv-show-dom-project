@@ -20,7 +20,7 @@ function setup() {
 
   const shows = getAllShows();
   const showList = document.querySelector("#series-list");
-  showList.innerHTML = createSerialSelectorMenu(shows);
+  showList.innerHTML = serialSelector(shows);
 
   showList.addEventListener("change", function (event) {
     const showId = event.target.value;
@@ -42,16 +42,13 @@ function makePageForEpisodes(episodeList) {
   rootElem.appendChild(episodes)
   
   const getInputField = document.querySelector(".search-episodes");
-  console.log(getInputField.value)
   // Dropdown rolling search
   const dropDownSearchMenu = document.querySelector("#episode-list");
   dropDownSearchMenu.addEventListener("change", function (event){
     const episodeId = event.target.value;
-    console.log(episodeId)
     const episodesFilteredById = episodeList.filter(
     (episode) => episode.id == episodeId
     );
-    console.log(episodesFilteredById)
     episodes.innerHTML = createNewList(episodesFilteredById);
   });
 
@@ -96,7 +93,7 @@ homebtn.addEventListener("click", function () {
   location.reload(true);
 });
 
-function createSerialSelectorMenu(shows) {
+function serialSelector(shows) {
   return shows
     .map(function (item) {
       return `<option value =${item.id}>
