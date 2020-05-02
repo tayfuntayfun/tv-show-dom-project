@@ -23,7 +23,7 @@ function setup() {
 
   const allShows = getAllShows();
   const showList = document.querySelector("#series-list");
-  showList.innerHTML = serialSelector(allShows);
+  showList.innerHTML = serieSelector(allShows);
 
   showList.addEventListener("change", function (event) {
     const showId = event.target.value;
@@ -72,6 +72,7 @@ function makePageForEpisodes(episodeList) {
 //     getMainHeader.document.style.color = "white"
 // }
 
+//Episodes List
 function createDropDownMenu(episodeList) {
   return episodeList
     .map(function (item) {
@@ -99,7 +100,7 @@ homeBtn.addEventListener("click", function () {
   location.reload(true);
 });
 
-function serialSelector(shows) {
+function serieSelector(shows) {
   return shows
     .map(function (item) {
       return `<option value =${item.id}>
