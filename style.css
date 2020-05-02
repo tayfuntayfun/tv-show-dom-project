@@ -129,18 +129,26 @@ p {
 }
 
 @media only screen and (max-width: 1000px) {
+
+  #series-list, #episode-list{
+  width: 95%;
+  }
+  .search-episodes {
+    width: 95%;
+    margin-top: 0.8rem;
+    padding: 8px ;
+  }
+  .home {
+    width: 95%;
+    margin-top: 0.8rem;
+    padding: 8px ;
+  }
   #search-episodes {
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
     font-weight: bolder;
-  }
-  #series-list, #episode-list{
-  width: auto;
-  }
-  .search-episodes {
-    width: auto;
-    margin: 10px 10px;
+    width: 95%;
   }
 }
