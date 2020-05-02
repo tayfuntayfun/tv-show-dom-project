@@ -7,8 +7,9 @@ rootElem.innerHTML = `
   <select id="series-list"></option></select>
   <span class="search-bar">Episodes</span>
   <select id="episode-list"></option></select>
-  <input type="search" class="search-episodes"  placeholder="Search  keywords">
-  </div><div class="episodeContainer"></div>`; 
+  <input type="search" class="search-episodes"  placeholder="Search keywords">
+  </div>
+  <div class="episodeContainer"></div>`; 
 
 //Onload function / API fetch / default Serie: 1
 function setup() {
@@ -53,7 +54,6 @@ function makePageForEpisodes(episodeList) {
   });
 
   dropDownSearchMenu.innerHTML = createDropDownMenu(episodeList);
-//DropDown menu
   //Search Button function
   getInputField.addEventListener("keyup", function () {
     let filteredEpisodes = episodeList.filter(
@@ -62,10 +62,15 @@ function makePageForEpisodes(episodeList) {
         episode.name.toLowerCase().includes(getInputField.value)
     );
     episodes.innerHTML = createNewList(filteredEpisodes);
-    let getmainHeader = document.getElementById("search-episodes")
-    getmainHeader.textContent += `${filterEpisode.length} episode(s)`;
+    // counter(filteredEpisodes)
   });
 }
+
+// function counter(filtered){
+//   let getMainHeader = document.querySelector("#search-episodes")
+//     getMainHeader.innerHTML += `${filtered.length} episode(s)`;
+//     getMainHeader.document.style.color = "white"
+// }
 
 function createDropDownMenu(episodeList) {
   return episodeList
