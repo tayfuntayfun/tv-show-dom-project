@@ -78,7 +78,7 @@ font-weight: bolder;
   padding: 3px 3px;
   border: rgb(49, 48, 48);
   color: red;
-  margin: 0 2px 5px 2px;
+  margin: 2px 2px 5px 2px;
 }
 
 .episodeHeader:hover{
@@ -93,7 +93,7 @@ font-weight: bolder;
   height: auto;
   min-width: 300px;
   padding-top: 0px;
-  border-radius: 12px;
+  border-radius: 10px;
   margin: 10px 10px;
   text-align: center;
   padding-bottom: 2rem;

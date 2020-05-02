@@ -21,9 +21,21 @@ function setup() {
       makePageForEpisodes(data);
     });
 
-  const allShows = getAllShows();
+  let allShows = getAllShows();
+  //Sort the Series
+  allShows.sort(function(a, b) {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    // names must be equal
+    return 0;
+  });
+
   const showList = document.querySelector("#series-list");
-  showList.innerHTML = serieSelector(allShows);
+  showList.innerHTML = seriesSelector(allShows);
 
   showList.addEventListener("change", function (event) {
     const showId = event.target.value;
@@ -56,23 +68,16 @@ function makePageForEpisodes(episodeList) {
   dropDownSearchMenu.innerHTML = createDropDownMenu(episodeList);
   //Search Button function
   getInputField.addEventListener("keyup", function () {
-    let filteredEpisodes = episodeList.filter(
+      filteredEpisodes = episodeList.filter(
       (episode) =>
         episode.summary.toLowerCase().includes(getInputField.value.toLowerCase()) ||
         episode.name.toLowerCase().includes(getInputField.value.toLowerCase())
     );
     episodes.innerHTML = createNewList(filteredEpisodes);
-    // counter(filteredEpisodes)
   });
 }
 
-// function counter(filtered){
-//   let getMainHeader = document.querySelector("#search-episodes")
-//     getMainHeader.innerHTML += `${filtered.length} episode(s)`;
-//     getMainHeader.document.style.color = "white"
-// }
-
-//Episodes List
+//Episodes Drop Down list
 function createDropDownMenu(episodeList) {
   return episodeList
     .map(function (item) {
@@ -84,6 +89,7 @@ function createDropDownMenu(episodeList) {
   .join("");
 }
 
+//Episodes creation 
 function  createNewList(episodeList){ 
 return episodeList.map(function (item) {
     return `<div class="episode">
@@ -100,7 +106,7 @@ homeBtn.addEventListener("click", function () {
   location.reload(true);
 });
 
-function serieSelector(shows) {
+function seriesSelector(shows) {
   return shows
     .map(function (item) {
       return `<option value =${item.id}>
