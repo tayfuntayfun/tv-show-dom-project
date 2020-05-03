@@ -7,13 +7,13 @@ rootElem.innerHTML = `
   <select id="series-list"></option></select>
   <span class="search-bar">Episodes</span>
   <select id="episode-list"></option></select>
-  <input type="search" class="search-episodes"  placeholder="Search keywords">
+  <input type="search" class="search-episodes"  placeholder="Search keywords"><p class="counter"></p>
   </div>
   <div class="episodeContainer"></div>`; 
 
 //Onload function / API fetch / default Serie: 1
 function setup() {
-  fetch("https://api.tvmaze.com/shows/1/episodes")
+  fetch("https://api.tvmaze.com/shows/82/episodes")
     .then((response) => {
       return response.json();
     })
@@ -55,7 +55,8 @@ function makePageForEpisodes(episodeList) {
   episodes.innerHTML = createNewList(episodeList);
   
   const getInputField = document.querySelector(".search-episodes");
-  // Dropdown rolling search
+
+  // Dropdown rolling Series
   const dropDownSearchMenu = document.querySelector("#episode-list");
   dropDownSearchMenu.addEventListener("change", function (event){
     const episodeId = event.target.value;
@@ -67,13 +68,17 @@ function makePageForEpisodes(episodeList) {
 
   dropDownSearchMenu.innerHTML = createDropDownMenu(episodeList);
   //Search Button function
+  // searchCounter.textContent = `${filteredEpisodes.length} / ${episodeList.length} episode(s)` 
   getInputField.addEventListener("keyup", function () {
+    
       filteredEpisodes = episodeList.filter(
       (episode) =>
         episode.summary.toLowerCase().includes(getInputField.value.toLowerCase()) ||
         episode.name.toLowerCase().includes(getInputField.value.toLowerCase())
     );
     episodes.innerHTML = createNewList(filteredEpisodes);
+    let searchCounter = document.querySelector(".counter")
+    searchCounter.textContent = `${filteredEpisodes.length} episode(s)`  
   });
 }
 
@@ -90,7 +95,9 @@ function createDropDownMenu(episodeList) {
 }
 
 //Episodes creation 
-function  createNewList(episodeList){ 
+function  createNewList(episodeList){
+  let searchCounter = document.querySelector(".counter")
+  searchCounter.textContent = `${episodeList.length} episode(s)`  
 return episodeList.map(function (item) {
     return `<div class="episode">
     <h1 class="episodeHeader">${item.name} - S${item.season.toString().padStart(2, "0")}E${item.number.toString().padStart(2, "0")}</h1>
@@ -98,6 +105,7 @@ return episodeList.map(function (item) {
     ${item.summary}
     </div>`;
   }).join('');
+
 }
 
 //reset page to default
