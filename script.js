@@ -13,7 +13,7 @@ rootElem.innerHTML = `
 
 //Onload function / API fetch / default Serie: 1
 function setup() {
-  fetch("https://api.tvmaze.com/shows/82/episodes")
+  fetch("https://api.tvmaze.com/shows/1/episodes")
     .then((response) => {
       return response.json();
     })
