@@ -67,8 +67,8 @@ function makePageForEpisodes(episodeList) {
   });
 
   dropDownSearchMenu.innerHTML = createDropDownMenu(episodeList);
-  //Search Button function
-  // searchCounter.textContent = `${filteredEpisodes.length} / ${episodeList.length} episode(s)` 
+  
+  //Search Button function and counter
   getInputField.addEventListener("keyup", function () {
     
       filteredEpisodes = episodeList.filter(
@@ -105,7 +105,6 @@ return episodeList.map(function (item) {
     ${item.summary}
     </div>`;
   }).join('');
-
 }
 
 //reset page to default
