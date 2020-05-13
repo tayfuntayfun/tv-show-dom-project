@@ -12,8 +12,11 @@ rootElem.innerHTML = `
   <div class="episodeContainer"></div>`; 
 
 //Onload function / API fetch / default Serie: 1
+
+const DefaultShow =  "https://api.tvmaze.com/shows/1/episodes"
+
 function setup() {
-  fetch("https://api.tvmaze.com/shows/1/episodes")
+  fetch(DefaultShow)
     .then((response) => {
       return response.json();
     })
@@ -61,7 +64,7 @@ function makePageForEpisodes(episodeList) {
   dropDownSearchMenu.addEventListener("change", function (event){
     const episodeId = event.target.value;
     const episodesFilteredById = episodeList.filter(
-    (episode) => episode.id == episodeId
+    (episode) => episode.id === episodeId
     );
     episodes.innerHTML = createNewList(episodesFilteredById);
   });
@@ -70,7 +73,7 @@ function makePageForEpisodes(episodeList) {
   
   //Search Button function and counter
   getInputField.addEventListener("keyup", function () {
-    
+    console.log(getInputField.value)
       filteredEpisodes = episodeList.filter(
       (episode) =>
         episode.summary.toLowerCase().includes(getInputField.value.toLowerCase()) ||
@@ -85,7 +88,7 @@ function makePageForEpisodes(episodeList) {
 //Episodes Drop Down list
 function createDropDownMenu(episodeList) {
   return episodeList
-    .map(function (item) {
+    .map((item) => {
       return `<option value =${item.id}>
       S${item.season.toString().padStart(2,"0")}
       E${item.number.toString().padStart(2, "0")} 
@@ -98,7 +101,7 @@ function createDropDownMenu(episodeList) {
 function  createNewList(episodeList){
   let searchCounter = document.querySelector(".counter")
   searchCounter.textContent = `${episodeList.length} episode(s)`  
-return episodeList.map(function (item) {
+return episodeList.map((item) => {
     return `<div class="episode">
     <h1 class="episodeHeader">${item.name} - S${item.season.toString().padStart(2, "0")}E${item.number.toString().padStart(2, "0")}</h1>
     <img src=${item.image.medium} alt= ${item.name}>
