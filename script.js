@@ -63,8 +63,8 @@ function makePageForEpisodes(episodeList) {
   const dropDownSearchMenu = document.querySelector("#episode-list");
   dropDownSearchMenu.addEventListener("change", function (event) {
     const episodeId = event.target.value;
-    const episodesFilteredById = episodeList.filter(
-      (episode) => episode.id === episodeId
+    const episodesFilteredById = episodeList.find(
+      (episode) => episode.id == episodeId
     );
     episodes.innerHTML = createNewList(episodesFilteredById);
   });
@@ -73,7 +73,6 @@ function makePageForEpisodes(episodeList) {
 
   //Search Button function and counter
   getInputField.addEventListener("keyup", function () {
-    console.log(getInputField.value);
     filteredEpisodes = episodeList.filter(
       (episode) =>
         episode.summary
@@ -103,17 +102,29 @@ function createDropDownMenu(episodeList) {
 function createNewList(episodeList) {
   let searchCounter = document.querySelector(".counter");
   searchCounter.textContent = `${episodeList.length} episode(s)`;
-  return episodeList
-    .map((item) => {
-      return `<div class="episode">
+  return episodeList.length > 1
+    ? episodeList
+        .map((item) => {
+          return `<div class="episode">
     <h1 class="episodeHeader">${item.name} - S${item.season
-        .toString()
-        .padStart(2, "0")}E${item.number.toString().padStart(2, "0")}</h1>
+            .toString()
+            .padStart(2, "0")}E${item.number.toString().padStart(2, "0")}</h1>
     <img src=${item.image.medium} alt= ${item.name}>
     ${item.summary}
     </div>`;
-    })
-    .join("");
+        })
+        .join("")
+    : `<div class="episode">
+          <h1 class="episodeHeader">${
+            episodeList.name
+          } - S${episodeList.season
+        .toString()
+        .padStart(2, "0")}E${episodeList.number
+        .toString()
+        .padStart(2, "0")}</h1>
+    <img src=${episodeList.image.medium} alt= ${episodeList.name}>
+    ${episodeList.summary}
+    </div>`;
 }
 
 //reset page to default
