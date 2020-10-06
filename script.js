@@ -1,5 +1,5 @@
 const rootElem = document.getElementById("root");
-  //Create search feature;
+//Create search feature;
 rootElem.innerHTML = `
   <div id="search-episodes">
   <button class="home" type="button">HOME</button>
@@ -9,11 +9,11 @@ rootElem.innerHTML = `
   <select id="episode-list"></option></select>
   <input type="search" class="search-episodes"  placeholder="Search keywords"><p class="counter"></p>
   </div>
-  <div class="episodeContainer"></div>`; 
+  <div class="episodeContainer"></div>`;
 
 //Onload function / API fetch / default Serie: 1
 
-const DefaultShow =  "https://api.tvmaze.com/shows/1/episodes"
+const DefaultShow = "https://api.tvmaze.com/shows/1/episodes";
 
 function setup() {
   fetch(DefaultShow)
@@ -26,7 +26,7 @@ function setup() {
 
   let allShows = getAllShows();
   //Sort the Series
-  allShows.sort(function(a, b) {
+  allShows.sort(function (a, b) {
     if (a.name < b.name) {
       return -1;
     }
@@ -56,32 +56,34 @@ function setup() {
 function makePageForEpisodes(episodeList) {
   let episodes = document.querySelector(".episodeContainer");
   episodes.innerHTML = createNewList(episodeList);
-  
+
   const getInputField = document.querySelector(".search-episodes");
 
   // Dropdown rolling Series
   const dropDownSearchMenu = document.querySelector("#episode-list");
-  dropDownSearchMenu.addEventListener("change", function (event){
+  dropDownSearchMenu.addEventListener("change", function (event) {
     const episodeId = event.target.value;
     const episodesFilteredById = episodeList.filter(
-    (episode) => episode.id === episodeId
+      (episode) => episode.id === episodeId
     );
     episodes.innerHTML = createNewList(episodesFilteredById);
   });
 
   dropDownSearchMenu.innerHTML = createDropDownMenu(episodeList);
-  
+
   //Search Button function and counter
   getInputField.addEventListener("keyup", function () {
-    console.log(getInputField.value)
-      filteredEpisodes = episodeList.filter(
+    console.log(getInputField.value);
+    filteredEpisodes = episodeList.filter(
       (episode) =>
-        episode.summary.toLowerCase().includes(getInputField.value.toLowerCase()) ||
+        episode.summary
+          .toLowerCase()
+          .includes(getInputField.value.toLowerCase()) ||
         episode.name.toLowerCase().includes(getInputField.value.toLowerCase())
     );
     episodes.innerHTML = createNewList(filteredEpisodes);
-    let searchCounter = document.querySelector(".counter")
-    searchCounter.textContent = `${filteredEpisodes.length} episode(s)`  
+    let searchCounter = document.querySelector(".counter");
+    searchCounter.textContent = `${filteredEpisodes.length} episode(s)`;
   });
 }
 
@@ -90,24 +92,28 @@ function createDropDownMenu(episodeList) {
   return episodeList
     .map((item) => {
       return `<option value =${item.id}>
-      S${item.season.toString().padStart(2,"0")}
+      S${item.season.toString().padStart(2, "0")}
       E${item.number.toString().padStart(2, "0")} 
       ${item.name}</option>`;
     })
-  .join("");
+    .join("");
 }
 
-//Episodes creation 
-function  createNewList(episodeList){
-  let searchCounter = document.querySelector(".counter")
-  searchCounter.textContent = `${episodeList.length} episode(s)`  
-return episodeList.map((item) => {
-    return `<div class="episode">
-    <h1 class="episodeHeader">${item.name} - S${item.season.toString().padStart(2, "0")}E${item.number.toString().padStart(2, "0")}</h1>
+//Episodes creation / and render
+function createNewList(episodeList) {
+  let searchCounter = document.querySelector(".counter");
+  searchCounter.textContent = `${episodeList.length} episode(s)`;
+  return episodeList
+    .map((item) => {
+      return `<div class="episode">
+    <h1 class="episodeHeader">${item.name} - S${item.season
+        .toString()
+        .padStart(2, "0")}E${item.number.toString().padStart(2, "0")}</h1>
     <img src=${item.image.medium} alt= ${item.name}>
     ${item.summary}
     </div>`;
-  }).join('');
+    })
+    .join("");
 }
 
 //reset page to default
